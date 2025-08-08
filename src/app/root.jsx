@@ -1,14 +1,15 @@
 import React from 'react'
 
-import { Outlet } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Outlet, NavLink } from 'react-router-dom'
 
 function root() {
     return (
         <div id="main">
             <div id="menu">
                 <nav>
-                    <Link to={'/products'}>Products</Link>
+                    <NavLink to="/products" end>
+                        Products
+                    </NavLink>
                     <a>Sellers</a>
                 </nav>
             </div>
