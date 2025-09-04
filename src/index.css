@@ -55,3 +55,7 @@ a {
 	color: black;
 	padding: 1px 12px 1px 12px;
 }
+
+nav a.active {
+	color: purple;
+}

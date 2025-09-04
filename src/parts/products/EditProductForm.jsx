@@ -3,15 +3,14 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { productUpdated } from './productsSlice'
+import { selectProductById } from './productsSlice'
 
 function EditProductForm() {
 
     let params = useParams()
     const { productId } = params
 
-    const product = useSelector((state) =>
-        state.products.find((product) => product.id === productId)
-    )
+    const product = useSelector((state) =>selectProductById(state, productId))
 
     const [name, setName] = useState(product.name)
     const [desc, setDesc] = useState(product.desc)

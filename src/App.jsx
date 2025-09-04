@@ -3,6 +3,8 @@ import Root from './app/root'
 import ProductsList from './parts/products/ProductsList'
 import ProductPage from './parts/products/ProductPage'
 import EditProductForm from './parts/products/EditProductForm'
+import SellersList from './parts/sellers/SellersList'
+import SellerPage from './parts/sellers/SellerPage'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,14 @@ const router = createBrowserRouter([
     {
       path: '/editProduct/:productId',
       element: <EditProductForm />,
+    },
+    {
+      path: '/sellers',
+      element: <SellersList />,
+    },
+    {
+      path: '/sellers/:sellerId',
+      element: <SellerPage />,
     },]
   },
 ])

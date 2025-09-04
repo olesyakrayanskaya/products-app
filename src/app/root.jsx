@@ -10,7 +10,9 @@ function root() {
                     <NavLink to="/products" end>
                         Products
                     </NavLink>
-                    <a>Sellers</a>
+                    <NavLink to="/sellers" end>
+                        Sellers
+                    </NavLink>
                 </nav>
             </div>
             <div id="main_page">

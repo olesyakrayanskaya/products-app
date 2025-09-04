@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
-import { productAdded } from './productsSlice'
+import { addProduct } from './productsSlice'
 import { useSelector } from 'react-redux'
 
 function NewProductForm() {
@@ -12,6 +12,8 @@ function NewProductForm() {
     const [price, setPrice] = useState(0)
     const [amount, setAmount] = useState(0)
     const [sellerId, setSellerId] = useState('')
+
+    const [requestStatus, setRequestStatus] = useState('idle')
 
     const onNameChanged = (e) => setName(e.target.value)
     const onDescChanged = (e) => setDesc(e.target.value)
@@ -23,13 +25,26 @@ function NewProductForm() {
 
     const sellers = useSelector((state) => state.sellers)
 
-    const onSaveProductClick = () => {
-        if (name && desc && price && amount) {
-            dispatch(productAdded(name, desc, price, amount, sellerId))
-            setName('')
-            setDesc('')
-            setPrice(0)
-            setAmount(0)
+    const canBeSaved =
+        [name, desc, price, amount, sellerId].every(Boolean) &&
+        requestStatus === 'idle'
+
+    const onSaveProductClick = async () => {
+        if (canBeSaved) {
+            try {
+                setRequestStatus('in progress')
+                await dispatch(
+                    addProduct({ name, desc, price, amount, seller: sellerId })).unwrap()
+                setName('')
+                setDesc('')
+                setPrice(0)
+                setAmount(0)
+                setSellerId('')
+            } catch (err) {
+                console.error('save product error: ', err)
+            } finally {
+                setRequestStatus('idle')
+            }
         }
     }
 
