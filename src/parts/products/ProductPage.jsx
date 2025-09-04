@@ -1,6 +1,8 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import SellerOfProd from './SellerOfProd'
+import UserReactions from './UserReactions'
 
 function ProductPage() {
 
@@ -18,9 +20,11 @@ function ProductPage() {
     return (
         <div>
             <h2>{product.name}</h2>
+            <SellerOfProd sellerId={product.seller} />
             <p>Description: {product.desc}</p>
             <p>Price: {product.price}</p>
             <p>Amount:{product.amount}</p>
+            <UserReactions product={product} />
             <Link to={`/editProduct/${product.id}`} className="link-btn">
                 edit
             </Link>

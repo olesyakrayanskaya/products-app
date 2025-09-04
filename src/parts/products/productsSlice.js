@@ -7,6 +7,11 @@ const initialState = [
         desc: 'This is an amazing product',
         price: '300',
         amount: '30',
+        reactions: {
+            good: 0,
+            soso: 0,
+            bad: 0,
+        },
     },
     {
         id: '2',
@@ -14,6 +19,11 @@ const initialState = [
         desc: 'This is a nice product',
         price: '700',
         amount: '12',
+        reactions: {
+            good: 0,
+            soso: 0,
+            bad: 0,
+        },
     },
 ]
 
@@ -25,7 +35,7 @@ const productsSlice = createSlice({
             reducer(state, action) {
                 state.push(action.payload)
             },
-            prepare(name, desc, price, amount) {
+            prepare(name, desc, price, amount, sellerId) {
                 return {
                     payload: {
                         id: nanoid(),
@@ -33,6 +43,12 @@ const productsSlice = createSlice({
                         desc,
                         price,
                         amount,
+                        seller: sellerId,
+                        reactions: {
+                            good: 0,
+                            soso: 0,
+                            bad: 0,
+                        },
                     },
                 }
             },
@@ -47,8 +63,15 @@ const productsSlice = createSlice({
                 desiredProduct.amount = amount
             }
         },
+        reactionClicked(state, action) {
+            const { productId, reaction } = action.payload
+            const currentProduct = state.find(product => product.id === productId)
+            if (currentProduct) {
+                currentProduct.reactions[reaction]++
+            }
+        },
     }
 })
 
-export const { productAdded, productUpdated } = productsSlice.actions
+export const { productAdded, productUpdated, reactionClicked } = productsSlice.actions
 export default productsSlice.reducer
